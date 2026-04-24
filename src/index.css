@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  /* Couleurs personnalisées */
+  --color-primary: #22c55e;
+  --color-accent: #eab308;
+  --color-alert: #ef4444;
+
+  /* Typographie */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, Consolas, monospace;
+
+  /* Animations */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-glow: glow 2s ease-in-out infinite alternate;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+  @keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(34, 197, 94, 0.5), 0 0 20px rgba(34, 197, 94, 0.3); }
+    100% { box-shadow: 0 0 10px rgba(34, 197, 94, 0.8), 0 0 40px rgba(34, 197, 94, 0.5); }
+  }
+  @keyframes shimmer {
+    100% { transform: translateX(100%); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased;
+    font-family: var(--font-sans);
+  }
+}
+
+@layer components {
+  /* Conteneur principal (remplace ton ancien #root) */
+  .container-app {
+    @apply w-[1126px] max-w-full mx-auto text-center border-x border-white/10 min-h-svh flex flex-col box-border;
+  }
+
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;
+  }
+  
+  .glass-hover {
+    @apply hover:bg-white/10 hover:border-primary/50 hover:shadow-primary/20 transition-all duration-500;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary;
+  }
+  
+  .glow-button {
+    @apply relative overflow-hidden shadow-[0_0_20px_rgba(34,197,94,0.3)];
+  }
+  
+  .glow-button::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full;
+    animation: shimmer 2s infinite;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-slate-900;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/50 rounded-full hover:bg-primary;
+}
